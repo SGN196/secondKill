@@ -1,0 +1,10 @@
+create table miaosha_user(
+	id bigint(20) not null primary key,
+	nickname varchar(255) not null,
+	password varchar(32) default null, -- MD5（MD5（pass明文 + 固定salt） + salt）
+	salt varchar(10) default null,
+	head varchar(128) default null,
+	register_date datetime default null,
+	last_login_date datetime default null,
+	login_count int(11) default '0'
+);

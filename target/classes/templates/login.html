@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" th:src="@{/js/jquery-3.3.1.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.css}"/>
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+
+    <script type="text/javascript" th:src="@{/jquery-validation/dist/jquery.validate.js}"></script>
+    <script type="text/javascript" th:src="@{/jquery-validation/dist/localization/messages_zh.js}"></script>
+    <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+    <script type="text/javascript" th:src="@{/js/md5.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common.js}"></script>
+    <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+    <script type="text/javascript" th:src="@{/js/md5.js}"></script>
+    <title>Title</title>
+</head>
+<body>
+    <form name="loginForm" id="loginForm" method="post">
+        用户登录
+        <hr>
+        请输入手机号码:<input id="mobile" name="mobile" placheholder="手机号码" />
+        <br>
+        请输入密码:<input id="password" type="password" name="password"/>
+        <br>
+        <button onclick="reset()">重置</button>
+        <button type="submit" onclick="login()">登录</button>
+
+
+
+
+    </form>
+</body>
+<script>
+    function login(){
+        $("#loginForm").validate({
+            submitHandler:function(form){
+                doLogin();
+            }
+        })
+    }
+    function doLogin() {
+        g_showLoading();
+        var inputPass = $("#password").val();
+        var salt = g_password_salt;
+        var str = salt.charAt(0) + salt.charAt(2) + inputPass + salt.charAt(5) + salt.charAt(4);
+        alert(str)
+        var password = md5(str);
+        $.ajax({
+            url:"/login/do_login",
+            type:"POST",
+            data:{
+                mobile:$("#mobile").val(),
+                password:password
+            },
+            success:function(){
+                layer.closeAll();
+                // console.log(data);
+            },
+            error:function () {
+
+            }
+        });
+    }
+</script>
+</html>
