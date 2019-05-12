@@ -44,8 +44,8 @@
         var inputPass = $("#password").val();
         var salt = g_password_salt;
         var str = salt.charAt(0) + salt.charAt(2) + inputPass + salt.charAt(5) + salt.charAt(4);
-        alert(str)
-        var password = md5(str);
+        var password = hex_md5(str);
+
         $.ajax({
             url:"/login/do_login",
             type:"POST",
@@ -53,9 +53,15 @@
                 mobile:$("#mobile").val(),
                 password:password
             },
-            success:function(){
+            success:function(data){
                 layer.closeAll();
-                // console.log(data);
+                if(data.code == 0){
+                    layer.msg("成功");
+                    window.location.href="/goods/to_list"
+                }else{
+                    layer.msg(data.msg)
+                }
+                console.log(data);
             },
             error:function () {
 

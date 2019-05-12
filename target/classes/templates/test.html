@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" th:src="@{/js/jquery-3.3.1.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.css}"/>
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+
+    <script type="text/javascript" th:src="@{/jquery-validation/dist/jquery.validate.js}"></script>
+    <script type="text/javascript" th:src="@{/jquery-validation/dist/localization/messages_zh.js}"></script>
+    <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+    <script type="text/javascript" th:src="@{/js/md5.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common.js}"></script>
+    <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+    <script type="text/javascript" th:src="@{/js/md5.js}"></script>
+    <title>Title</title>
+
+</head>
+<body>
+    <form name="loginForm" id="loginForm" onsubmit="abc()" method="post">
+        username:<input type="text" name="username" id="aaa" />
+        <span></span>
+        <br>
+        password:<input type="password" name="password" id="bbb" />
+        <span></span>
+        <input type="submit"/>
+    </form>
+
+
+</body>
+<script>
+    function abc() {
+        var a = $("#aaa").val;
+        alert(a);
+    }
+    $("#aaa").change(function () {
+        var aa = this.value;
+        var bb = hex_md5($("#bbb").val());
+
+        alert(aa);
+        alert(bb);
+        $.ajax({
+            url: '/goods/cal',
+            data: JSON.stringify({
+                username: aa,
+                password: bb
+            }),
+            contentType: "application/json;charset=UTF-8",
+            async : true,
+            // dataType : "JSON",
+            success : function (data) {
+                // alert(data);
+                // $("input[name='bbb']").val(data);
+                // $("#bbb").html(data);
+                $("#bbb").val(data);
+            }
+        })
+
+    })
+
+</script>
+</html>

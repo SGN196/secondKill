@@ -1,5 +1,10 @@
 package com.caiqian.miaosha.vo;
 
+import com.caiqian.miaosha.validator.IsMobile;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotNull;
+
 /**
  * @author SGN196
  * @date 2019/3/25 21:02
@@ -7,7 +12,13 @@ package com.caiqian.miaosha.vo;
 
 public class LoginVo
 {
+
+    @NotNull
+    @IsMobile
     private String mobile;
+
+    @NotNull
+    @Length(min = 32)
     private String password;
 
     public String getMobile()

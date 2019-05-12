@@ -3,10 +3,12 @@ package com.caiqian.miaosha.controller;
 import com.caiqian.miaosha.domain.User;
 import com.caiqian.miaosha.redis.RedisService;
 import com.caiqian.miaosha.redis.UserKey;
+import com.caiqian.miaosha.result.Result;
 import com.caiqian.miaosha.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,6 +27,13 @@ public class SampleController
 
     @Autowired
     RedisService redisService;
+
+
+    @RequestMapping("hhaa")
+    @ResponseBody
+    public Result<String> hhaa(){
+        return Result.success("hello world");
+    }
 
     @RequestMapping("/thymeleaf")
     public String thymeleaf(Model model){
